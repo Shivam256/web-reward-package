@@ -1,6 +1,11 @@
 {
-  "name": "web-reward-package",
+  "name": "wrs-server-pack",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "prepublish": "tsc",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.1.3"
+  }
 }
