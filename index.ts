@@ -10,45 +10,27 @@ interface WRS_CONFIG {
   auth: WRS_AUTH;
 }
 
-interface CONTROLLERS {
-  testController: (data: baseData) => Promise<void>;
-}
 
-interface WRS {
-  config: WRS_CONFIG;
-  controllers: CONTROLLERS;
-}
-
-interface baseData {
-  config: WRS_CONFIG;
-  id: string;
-}
-
-const testController = async (data: baseData) => {
-  console.log("jejjejeje");
-
-  try {
-    const res = await axios.post(
-      `http://localhost:9000/auth/user/6345`,
-      data.config
-    );
-    console.log(res, "heheheheh, here is the big man!");
-  } catch (err) {
-    console.log(err, "error in package request");
-  }
-};
-
-const wrs: WRS = {
-  config: {
-    auth: {
-      API_KEY: "",
-      API_SECRET: "",
-      PROJECT_KEY: "",
+const wrs = (config: WRS_CONFIG) => {
+  const controllers = {
+    testController: async () => {
+      try {
+        const res = await axios.post(
+          `http://localhost:9000/auth/user`,
+          config.auth
+        );
+        console.log(res.data, "here is the big man");
+      } catch (err) {
+        console.log(err, "error in package request");
+      }
     },
-  },
-  controllers: {
-    testController,
-  },
+  };
+
+  return {
+    controllers,
+  };
 };
 
-export default wrs;
+export = {
+  wrs,
+};
